@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart QR & Scanner App</title>
+
+    <!-- Heart-shaped QR Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+
+    <!-- QR Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #qr-code, #qr-reader {
+            margin: 20px auto;
+        }
+        #result a {
+            color: #ff0000;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 250px;
+        }
+        button {
+            padding: 8px 15px;
+            margin-left: 5px;
+            cursor: pointer;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heart QR Code & QR Scanner</h1>
+
+    <!-- Input to generate heart QR code for any URL -->
+    <h2>Generate Heart QR Code</h2>
+    <input type="text" id="url-input" placeholder="Enter URL here">
+    <button onclick="generateQRCode()">Generate QR</button>
+    <div id="qr-code"></div>
+
+    <!-- QR Scanner -->
+    <h2>Scan QR Code</h2>
+    <div id="qr-reader" style="width:300px;"></div>
+    <div id="result"></div>
+
+    <script>
+        // ===== Heart-shaped QR Code =====
+        let qrCode = new QRCodeStyling({
+            width: 300,
+            height: 300,
+            data: "https://github.com/ksidhart118-cmd/Heart-QR-Code.git", // Default URL
+            dotsOptions: {
+                type: "heart",
+                color: "#ff0000"
+            },
+            backgroundOptions: {
+                color: "#ffffff"
+            }
+        });
+
+        qrCode.append(document.getElementById("qr-code"));
+
+        function generateQRCode() {
+            const url = document.getElementById("url-input").value;
+            if(url) {
+                qrCode.update({ data: url });
+            } else {
+                alert("Please enter a URL!");
+            }
+        }
+
+        // ===== QR Scanner =====
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById('result').innerHTML = 
+                Scanned URL: <a href="${decodedText}" target="_blank">${decodedText}</a>;
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", { fps: 10, qrbox: 250 }
+        );
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
+</body>
+</html>
