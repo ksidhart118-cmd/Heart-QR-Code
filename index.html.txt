@@ -58,7 +58,7 @@
         let qrCode = new QRCodeStyling({
             width: 300,
             height: 300,
-            data: "https://ksidhart118-cmd.github.io/love-web/", // Default URL
+            data: "https://vercel.com/ksidhart118-cmds-projects/heart-qr-code/CMfP9RGYachkxFYw7LVLuWaVWAbu", // Default URL
             dotsOptions: {
                 type: "heart",
                 color: "#ff0000"
@@ -93,3 +93,4 @@
 </body>
 
 </html>
+
